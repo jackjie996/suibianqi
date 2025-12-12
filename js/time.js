@@ -1,68 +1,89 @@
 function init_life_time() {
-    function getAsideLifeTime() {
+    // 缓存DOM元素，减少选择器查询
+    const dayProgress = {
+        text: $('#dayProgress .date-text span'),
+        bar: $('#dayProgress .progress .progress-bar')
+    };
+    const weekProgress = {
+        text: $('#weekProgress .date-text span'),
+        bar: $('#weekProgress .progress .progress-bar')
+    };
+    const monthProgress = {
+        text: $('#monthProgress .date-text span'),
+        bar: $('#monthProgress .progress .progress-bar')
+    };
+    const yearProgress = {
+        text: $('#yearProgress .date-text span'),
+        bar: $('#yearProgress .progress .progress-bar')
+    };
+    
+    // 星期映射
+    const weeks = {
+        0: 7,
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4,
+        5: 5,
+        6: 6
+    };
+    
+    function updateProgress() {
         /* 当前时间戳 */
-        let nowDate = +new Date();
+        const nowDate = +new Date();
         /* 今天开始时间戳 */
-        let todayStartDate = new Date(new Date().toLocaleDateString()).getTime();
+        const todayStartDate = new Date(new Date().toLocaleDateString()).getTime();
         /* 今天已经过去的时间 */
-        let todayPassHours = (nowDate - todayStartDate) / 1000 / 60 / 60;
+        const todayPassHours = (nowDate - todayStartDate) / 1000 / 60 / 60;
         /* 今天已经过去的时间比 */
-        let todayPassHoursPercent = (todayPassHours / 24) * 100;
-        $('#dayProgress .date-text span').html(parseInt(todayPassHours));
-        $('#dayProgress .progress .progress-bar').css('width', parseInt(todayPassHoursPercent) + '%');
-        $('#dayProgress .progress .progress-bar').html(parseInt(todayPassHoursPercent) + '%');
+        const todayPassHoursPercent = (todayPassHours / 24) * 100;
+        const todayPassHoursInt = parseInt(todayPassHours);
+        const todayPassHoursPercentInt = parseInt(todayPassHoursPercent);
+        
+        // 更新日进度
+        dayProgress.text.html(todayPassHoursInt);
+        dayProgress.bar.css('width', todayPassHoursPercentInt + '%').html(todayPassHoursPercentInt + '%');
+        
         /* 当前周几 */
-        let weeks = {
-            0: 7,
-            1: 1,
-            2: 2,
-            3: 3,
-            4: 4,
-            5: 5,
-            6: 6
-        };
-        let weekDay = weeks[new Date().getDay()];
-        let weekDayPassPercent = (weekDay / 7) * 100;
-        $('#weekProgress .date-text span').html(weekDay);
-        $('#weekProgress .progress .progress-bar').css('width', parseInt(weekDayPassPercent) + '%');
-        $('#weekProgress .progress .progress-bar').html(parseInt(weekDayPassPercent) + '%');
+        const weekDay = weeks[new Date().getDay()];
+        const weekDayPassPercent = (weekDay / 7) * 100;
+        const weekDayPassPercentInt = parseInt(weekDayPassPercent);
+        
+        // 更新周进度
+        weekProgress.text.html(weekDay);
+        weekProgress.bar.css('width', weekDayPassPercentInt + '%').html(weekDayPassPercentInt + '%');
+        
         /* 月 */
-        let year = new Date().getFullYear();
-        let date = new Date().getDate();
-        let month = new Date().getMonth() + 1;
-        let monthAll = new Date(year, month, 0).getDate();
-        let monthPassPercent = (date / monthAll) * 100;
-        $('#monthProgress .date-text span').html(date);
-        $('#monthProgress .progress .progress-bar').css('width', parseInt(monthPassPercent) + '%');
-        $('#monthProgress .progress .progress-bar').html(parseInt(monthPassPercent) + '%');
+        const year = new Date().getFullYear();
+        const date = new Date().getDate();
+        const month = new Date().getMonth() + 1;
+        const monthAll = new Date(year, month, 0).getDate();
+        const monthPassPercent = (date / monthAll) * 100;
+        const monthPassPercentInt = parseInt(monthPassPercent);
+        
+        // 更新月进度
+        monthProgress.text.html(date);
+        monthProgress.bar.css('width', monthPassPercentInt + '%').html(monthPassPercentInt + '%');
+        
         /* 年 */
-        let yearPass = (month / 12) * 100;
-        $('#yearProgress .date-text span').html(month);
-        $('#yearProgress .progress .progress-bar').css('width', parseInt(yearPass) + '%');
-        $('#yearProgress .progress .progress-bar').html(parseInt(yearPass) + '%');
+        const yearPass = (month / 12) * 100;
+        const yearPassInt = parseInt(yearPass);
+        
+        // 更新年进度
+        yearProgress.text.html(month);
+        yearProgress.bar.css('width', yearPassInt + '%').html(yearPassInt + '%');
     }
-    getAsideLifeTime();
-    setInterval(() => {
-        getAsideLifeTime();
-    }, 1000);
+    
+    // 初始更新
+    updateProgress();
+    
+    // 降低更新频率，从1秒改为60秒，减少DOM操作
+    setInterval(updateProgress, 60000);
 }
-init_life_time()
 
-now = new Date(), hour = now.getHours()
-if (hour < 6) {
-    var hello = "凌晨好";
-} else if (hour < 9) {
-    var hello = "早上好";
-} else if (hour < 12) {
-    var hello = "上午好";
-} else if (hour < 14) {
-    var hello = "中午好";
-} else if (hour < 17) {
-    var hello = "下午好";
-} else if (hour < 19) {
-    var hello = "傍晚好";
-} else if (hour < 22) {
-    var hello = "晚上好";
+// 等待DOM加载完成后初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init_life_time);
 } else {
-    var hello = "夜深了";
+    init_life_time();
 }

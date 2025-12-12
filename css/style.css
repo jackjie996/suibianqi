@@ -7,6 +7,435 @@ GitHub：https://github.com/imsyy/home
 
 @charset "utf-8";
 
+/* 加载动画样式 */
+#loading-box .loading-left-bg,
+#loading-box .loading-right-bg {
+    position: fixed;
+    z-index: 999998;
+    width: 50%;
+    height: 100%;
+    background-color: rgb(81 81 81 / 80%);
+    transition: all 0.7s cubic-bezier(0.42, 0, 0, 1.01);
+    backdrop-filter: blur(10px);
+}
+
+#loading-box .loading-right-bg {
+    right: 0;
+}
+
+#loading-box>.spinner-box {
+    position: fixed;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+#loading-box .spinner-box .loading-word {
+    position: absolute;
+    color: #ffffff;
+    font-size: 0.95rem;
+    transform: translateY(64px);
+    text-align: center;
+}
+
+p.loading-title {
+    font-size: 1.25rem;
+    margin: 20px 10px 4px 10px;
+}
+
+#loading-box .spinner-box .configure-core {
+    width: 100%;
+    height: 100%;
+    background-color: #37474f;
+}
+
+div.loaded div.loading-left-bg {
+    transform: translate(-100%, 0);
+}
+
+div.loaded div.loading-right-bg {
+    transform: translate(100%, 0);
+}
+
+div.loaded div.spinner-box {
+    display: none !important;
+}
+
+.loader {
+    position: absolute;
+    top: calc(50% - 32px);
+    left: calc(50% - 32px);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    perspective: 800px;
+    transition: all 0.7s cubic-bezier(0.42, 0, 0, 1.01);
+}
+
+.inner {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.inner.one {
+    left: 0%;
+    top: 0%;
+    animation: rotate-one 1s linear infinite;
+    border-bottom: 3px solid #EFEFFA;
+}
+
+.inner.two {
+    right: 0%;
+    top: 0%;
+    animation: rotate-two 1s linear infinite;
+    border-right: 3px solid #EFEFFA;
+}
+
+.inner.three {
+    right: 0%;
+    bottom: 0%;
+    animation: rotate-three 1s linear infinite;
+    border-top: 3px solid #EFEFFA;
+}
+
+@keyframes rotate-one {
+    0% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-two {
+    0% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+    }
+}
+
+@keyframes rotate-three {
+    0% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+    }
+}
+
+/* 动画样式 */
+/*模糊渐入动画*/
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+@-webkit-keyframes fade-in {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+@-moz-keyframes fade-in {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+@-o-keyframes fade-in {
+    0% {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+
+    100% {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+/*渐入动画*/
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 移动端样式 */
+/*小于1400px时*/
+@media (max-width: 1400px) {}
+
+/*小于1200px时*/
+@media (max-width: 1200px) {
+
+    /*总布局*/
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 1000px !important;
+    }
+
+    .weekday {
+        display: none;
+    }
+
+    /*音乐播放器*/
+    .music-text {
+        max-width: 170px !important;
+    }
+}
+
+/*小于992px时*/
+@media (max-width: 992px) {
+
+    /*总布局*/
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 900px !important;
+    }
+
+    .col.left {
+        margin-right: 0.75rem;
+    }
+
+    .col.right {
+        margin-left: 0.75rem;
+    }
+
+    /*一言*/
+    .col.hitokotos {
+        display: none;
+    }
+
+    /*第二屏 Logo*/
+    .logo.cards {
+        display: block !important;
+    }
+
+    /*更多菜单*/
+    .menu {
+        display: none;
+    }
+
+    /*功能区*/
+    .rightone {
+        display: block !important;
+        flex-wrap: wrap;
+        margin-top: 1.5rem;
+    }
+
+    /*卡片*/
+    .cards {
+        margin-bottom: 1.5rem;
+    }
+
+    /*页脚*/
+    #footer {
+        display: none;
+    }
+
+    /*天气*/
+    .col.times {
+        margin-top: 0;
+    }
+
+    /*更多内容*/
+    .more {
+        display: flex !important;
+        margin-top: 1.5rem;
+    }
+}
+
+/*小于768px时*/
+@media (max-width: 768px) {
+
+    /*总布局*/
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 700px !important;
+    }
+
+    /*主体内容*/
+    .main {
+        margin: 1rem 0.5rem 0 0.5rem;
+    }
+
+    .cards {
+        margin-bottom: 1rem;
+    }
+
+    /*功能区*/
+    .rightone {
+        margin-top: 1rem;
+    }
+
+    /*更多内容*/
+    .more {
+        margin-top: 1rem;
+    }
+}
+
+/*小于600px时*/
+@media (max-width: 600px) {
+
+    /*总布局*/
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm {
+        max-width: 500px !important;
+    }
+
+    /*布局*/
+    .row {
+        display: block !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .col.left {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .col.right {
+        margin-left: 0;
+    }
+
+    /*一言*/
+    .hitokoto.cards {
+        margin: 0 0 1.5rem 0;
+    }
+
+    /*功能区*/
+    .rightone {
+        margin-top: 0;
+    }
+
+    /*音乐*/
+    .open-music {
+        display: none !important;
+    }
+
+    /*移动端切换功能区*/
+    .row.menus {
+        display: block !important;
+    }
+
+    /*移动端切换功能区隐藏*/
+    .row.menus .col.hitokotos {
+        display: none !important;
+    }
+
+    /*移动端切换功能区显示*/
+    .row.menus.mobile .col.hitokotos {
+        display: block !important;
+    }
+
+    /*移动端切换功能区显示*/
+    .row.menus.mobile .col.times {
+        display: none !important;
+    }
+
+    /*卡片*/
+    .cards {
+        margin-bottom: 1.5rem;
+    }
+
+    /*更多内容*/
+    .more {
+        margin-top: 1.5rem;
+    }
+
+    /*弹窗页面*/
+    .box-wrapper {
+        display: block !important;
+    }
+
+    .box-left {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .box-right {
+        margin-left: 0;
+    }
+
+    /*时间胶囊*/
+    .date {
+        display: none;
+    }
+}
+
 /* @font-face {
     font-family: "MiSans";
     font-style: normal;

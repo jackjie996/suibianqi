@@ -86,25 +86,65 @@ let bg_img_preinstall = {
     "4": "https://api.ixiaowai.cn/api/api.php" // 随机动漫
 };
 
+// 背景图片错误处理
+function handleBgError(imgElement) {
+    // 移除错误类
+    imgElement.classList.remove('error');
+    // 使用默认图片
+    imgElement.src = './img/background1.webp';
+    // 防止递归错误
+    imgElement.onerror = null;
+}
+
+// 预加载背景图片
+function preloadBgImage(url, callback) {
+    const img = new Image();
+    img.onload = function() {
+        callback(true, url);
+    };
+    img.onerror = function() {
+        callback(false, url);
+    };
+    img.src = url;
+}
+
 // 更改背景图片
 function setBgImgInit() {
     let bg_img = getBgImg();
     $("input[name='wallpaper-type'][value=" + bg_img["type"] + "]").click();
-
+    
+    let bgUrl = '';
     switch (bg_img["type"]) {
         case "1":
-            $('#bg').attr('src', `./img/background${1 + ~~(Math.random() * 10)}.webp`) //随机默认壁纸
+            bgUrl = `./img/background${1 + ~~(Math.random() * 10)}.webp`; //随机默认壁纸
             break;
         case "2":
-            $('#bg').attr('src', bg_img_preinstall[2]); //必应每日
+            bgUrl = bg_img_preinstall[2]; //必应每日
             break;
         case "3":
-            $('#bg').attr('src', bg_img_preinstall[3]); //随机风景
+            bgUrl = bg_img_preinstall[3]; //随机风景
             break;
         case "4":
-            $('#bg').attr('src', bg_img_preinstall[4]); //随机动漫
+            bgUrl = bg_img_preinstall[4]; //随机动漫
             break;
+        default:
+            bgUrl = './img/background1.webp'; //默认图片
     }
+    
+    // 获取背景图片元素
+    const bgElement = document.getElementById('bg');
+    // 设置错误处理函数
+    bgElement.onerror = function() {
+        handleBgError(this);
+    };
+    // 预加载图片
+    preloadBgImage(bgUrl, function(success, url) {
+        if (success) {
+            bgElement.src = url;
+        } else {
+            handleBgError(bgElement);
+        }
+    });
 };
 
 $(document).ready(function () {
